@@ -66,3 +66,63 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## 记录
+
+### 2020 年 05 月 25 日
+
+### 使用 CSSTransition
+
+[CSSTransition](http://reactcommunity.org/react-transition-group/css-transition)
+
+```js
+<CSSTransition
+  // 数据变化
+  in={this.state.focused}
+  // 动画时间
+  timeout={300}
+  // 出入场动画样式前缀
+  classNames="slide"
+>
+  <NavSearch
+    className={this.state.focused ? "focused" : ""}
+    onFocus={this.handleInputFocus}
+    onBlur={this.handleInputBlur}
+  ></NavSearch>
+</CSSTransition>
+```
+
+```css
+/* 入场动画 */
+.slide-enter {
+  width: 160px;
+  transition: all 0.2s ease-out;
+}
+.slide-enter-active {
+  width: 240px;
+}
+/* 出场动画 */
+.slide-exit {
+  width: 240px;
+  transition: all 0.2s ease-out;
+}
+.slide-exit-active {
+  width: 160px;
+}
+```
+
+### Redux
+
+项目的数据管理使用 Redux，避免数据混乱
+
+安装 Redux
+
+```sh
+npm install --save redux
+```
+
+方便 react 使用 Redux
+
+```sh
+npm install --save react-redux
+```

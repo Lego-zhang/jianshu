@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
+import { actionCreators } from "./store";
 import {
   HeaderWrapper,
   Logo,
@@ -49,22 +50,16 @@ const Header = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused,
+    focused: state.header.get("focused"),
   };
 };
 const mapDispathToProps = (dispath) => {
   return {
     handleInputFocus() {
-      const action = {
-        type: "search_focus",
-      };
-      dispath(action);
+      dispath(actionCreators.searchFocus());
     },
     handleInputBlur() {
-      const action = {
-        type: "search_blur",
-      };
-      dispath(action);
+      dispath(actionCreators.searchBlur());
     },
   };
 };

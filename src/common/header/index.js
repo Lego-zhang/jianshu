@@ -20,6 +20,7 @@ import {
 
 class Header extends Component {
   render() {
+    const { focused, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -31,20 +32,14 @@ class Header extends Component {
             <span className="iconfont">&#xe636;</span>
           </NavItem>
           <SearchWrapper>
-            <CSSTransition
-              in={this.props.focused}
-              timeout={300}
-              classNames="slide"
-            >
+            <CSSTransition in={focused} timeout={300} classNames="slide">
               <NavSearch
-                className={this.props.focused ? "focused" : ""}
-                onFocus={this.props.handleInputFocus}
-                onBlur={this.props.handleInputBlur}
+                className={focused ? "focused" : ""}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
-            <span
-              className={this.props.focused ? "focused iconfont" : "iconfont"}
-            >
+            <span className={focused ? "focused iconfont" : "iconfont"}>
               &#xe662;
             </span>
             {this.getListArea()}
@@ -62,15 +57,17 @@ class Header extends Component {
     );
   }
   getListArea() {
-    if (this.props.focused) {
+    const { focused, list } = this.props;
+
+    if (focused) {
       return (
         <SearchInfo>
           <SearchInfoTitel>
             热门搜索
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
             <SearchInfoList>
-              {this.props.list.map((item, index) => {
-                return <SearchInfoItem key={item}>{item}</SearchInfoItem>;
+              {list.map((item, index) => {
+                return <SearchInfoItem key={index}>{item}</SearchInfoItem>;
               })}
             </SearchInfoList>
           </SearchInfoTitel>

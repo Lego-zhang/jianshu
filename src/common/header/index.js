@@ -57,19 +57,38 @@ class Header extends Component {
     );
   }
   getListArea() {
-    const { focused, list } = this.props;
+    const {
+      focused,
+      list,
+      page,
+      totalPage,
+      mouseIn,
+      handleMouseEnter,
+      handleMouseLeave,
+      handleChangePage,
+    } = this.props;
+    const newList = list.toJS();
+    const pageList = [];
+    if (newList.length) {
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
+        pageList.push(
+          <SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>
+        );
+      }
+    }
 
-    if (focused) {
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
+        <SearchInfo
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <SearchInfoTitel>
             热门搜索
-            <SearchInfoSwitch>换一批</SearchInfoSwitch>
-            <SearchInfoList>
-              {list.map((item, index) => {
-                return <SearchInfoItem key={index}>{item}</SearchInfoItem>;
-              })}
-            </SearchInfoList>
+            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)}>
+              换一批
+            </SearchInfoSwitch>
+            <SearchInfoList>{pageList}</SearchInfoList>
           </SearchInfoTitel>
         </SearchInfo>
       );
@@ -83,6 +102,9 @@ const mapStateToProps = (state) => {
   return {
     focused: state.getIn(["header", "focused"]),
     list: state.getIn(["header", "list"]),
+    page: state.getIn(["header", "page"]),
+    totalPage: state.getIn(["header", "totalPage"]),
+    mouseIn: state.getIn(["header", "mouseIn"]),
   };
 };
 const mapDispathToProps = (dispath) => {
@@ -93,6 +115,19 @@ const mapDispathToProps = (dispath) => {
     },
     handleInputBlur() {
       dispath(actionCreators.searchBlur());
+    },
+    handleMouseEnter() {
+      dispath(actionCreators.MounseEnter());
+    },
+    handleMouseLeave() {
+      dispath(actionCreators.MounseLeave());
+    },
+    handleChangePage(page, totalPage) {
+      if (page < totalPage) {
+        dispath(actionCreators.ChangePage(page + 1));
+      } else {
+        dispath(actionCreators.ChangePage(1));
+      }
     },
   };
 };

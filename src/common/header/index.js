@@ -20,7 +20,7 @@ import {
 
 class Header extends Component {
   render() {
-    const { focused, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, handleInputFocus, handleInputBlur, list } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -29,17 +29,21 @@ class Header extends Component {
           <NavItem className="left">下载App</NavItem>
           <NavItem className="right">登录</NavItem>
           <NavItem className="right">
-            <span className="iconfont">&#xe636;</span>
+            <span className="iconfont ">&#xe636;</span>
           </NavItem>
           <SearchWrapper>
             <CSSTransition in={focused} timeout={300} classNames="slide">
               <NavSearch
                 className={focused ? "focused" : ""}
-                onFocus={handleInputFocus}
+                onFocus={() => {
+                  handleInputFocus(list);
+                }}
                 onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
-            <span className={focused ? "focused iconfont" : "iconfont"}>
+            <span
+              className={focused ? "focused iconfont zoom" : "iconfont zoom"}
+            >
               &#xe662;
             </span>
             {this.getListArea()}
@@ -71,9 +75,7 @@ class Header extends Component {
     const pageList = [];
     if (newList.length) {
       for (let i = (page - 1) * 10; i < page * 10; i++) {
-        pageList.push(
-          <SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>
-        );
+        pageList.push(<SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>);
       }
     }
 
@@ -85,7 +87,17 @@ class Header extends Component {
         >
           <SearchInfoTitel>
             热门搜索
-            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)}>
+            <SearchInfoSwitch
+              onClick={() => handleChangePage(page, totalPage, this.spinIcon)}
+            >
+              <span
+                ref={(icon) => {
+                  this.spinIcon = icon;
+                }}
+                className="iconfont spin"
+              >
+                &#xe851;
+              </span>
               换一批
             </SearchInfoSwitch>
             <SearchInfoList>{pageList}</SearchInfoList>
@@ -109,8 +121,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispathToProps = (dispath) => {
   return {
-    handleInputFocus() {
-      dispath(actionCreators.getList());
+    handleInputFocus(list) {
+      console.log(list);
+      list.size === 0 && dispath(actionCreators.getList());
+
       dispath(actionCreators.searchFocus());
     },
     handleInputBlur() {
@@ -122,7 +136,17 @@ const mapDispathToProps = (dispath) => {
     handleMouseLeave() {
       dispath(actionCreators.MounseLeave());
     },
-    handleChangePage(page, totalPage) {
+    handleChangePage(page, totalPage, spin) {
+      let originAngle = spin.style.transform.replace(/[^0-9]/gi, "");
+
+      if (originAngle) {
+        originAngle = parseInt(originAngle, 10);
+      } else {
+        originAngle = 0;
+      }
+
+      spin.style.transform = "rotate(" + (originAngle + 360) + "deg)";
+      // console.log(spin.style.transform);
       if (page < totalPage) {
         dispath(actionCreators.ChangePage(page + 1));
       } else {

@@ -15,9 +15,9 @@ class Home extends Component {
     return (
       <HomeWrapper>
         <HoemLefr>
-          <img className="banner-img" src=""></img>
-          <List></List>
+          <img alt="" className="banner-img" src=""></img>
           <Topic></Topic>
+          <List></List>
         </HoemLefr>
         <HoemRight>
           <Recommend></Recommend>

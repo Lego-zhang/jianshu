@@ -8,7 +8,7 @@ import { Globalstyle } from "./style";
 import { IconFont } from "./statics/iconfont/iconfont";
 // 页面组件
 import Header from "./common/header/index";
-import Home from "./Home";
+import Home from "./page/Home";
 
 function App() {
   return (

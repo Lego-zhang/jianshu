@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
+import {actionCreators} from './store'
 import Topic from "./components/Topic";
 import List from "./components/List";
 import Recommend from "./components/Recommend";
@@ -15,7 +17,7 @@ class Home extends Component {
     return (
       <HomeWrapper>
         <HoemLefr>
-          <img alt="" className="banner-img" src=""></img>
+          <img alt="" className="banner-img" src="https://upload.jianshu.io/admin_banners/web_images/4976/a0012dd0250a3003bca3731ffa6098e82201d024.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"></img>
           <Topic></Topic>
           <List></List>
         </HoemLefr>
@@ -26,5 +28,17 @@ class Home extends Component {
       </HomeWrapper>
     );
   }
+  componentDidMount() {
+    this.props.getData()
+  }
 }
-export default Home;
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    getData(){
+      dispatch(actionCreators.getHomeData())
+    }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(Home);

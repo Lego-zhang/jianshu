@@ -1,6 +1,6 @@
 import axios from "axios";
 import { fromJS } from "immutable";
-import { CHANGE_HOME_DATA, ADD_HOME_lIST } from "./constants";
+import { CHANGE_HOME_DATA, ADD_HOME_lIST, TOGGLE_TOP_SHOW } from "./constants";
 const changeHomeData = (data) => ({
   type: CHANGE_HOME_DATA,
   data,
@@ -26,3 +26,7 @@ export const getMoreList = (page) => {
       });
   };
 };
+export const toggleTopShow = (show) => ({
+  type: TOGGLE_TOP_SHOW,
+  show,
+});

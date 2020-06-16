@@ -12,7 +12,7 @@ const addHomeList = (list, page) => ({
 });
 export const getHomeData = () => {
   return (dispatch) => {
-    axios.get("http://localhost:5001/api/home.json").then((res) => {
+    axios.get(`http://localhost:9091/api/home.json`).then((res) => {
       dispatch(changeHomeData(res.data.data));
     });
   };
@@ -20,7 +20,7 @@ export const getHomeData = () => {
 export const getMoreList = (page) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:5001/api/homeList.json?page=${page}`)
+      .get(`http://localhost:9091/api/homeList.json?page=${page}`)
       .then((res) => {
         dispatch(addHomeList(res.data.data, page));
       });

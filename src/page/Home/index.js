@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
 import { actionCreators } from "./store";
@@ -8,7 +8,7 @@ import Recommend from "./components/Recommend";
 import Writer from "./components/Writer";
 
 import { HomeWrapper, HoemLefr, HoemRight, BackTop } from "./styles";
-class Home extends Component {
+class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -48,6 +48,9 @@ class Home extends Component {
   componentDidMount() {
     this.props.getData();
     this.bindEvents();
+  }
+  componentWillUnmount(){
+    window.removeEventListener("scroll", this.props.changeScrollTopShow);
   }
 }
 

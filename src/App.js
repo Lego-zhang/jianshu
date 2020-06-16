@@ -15,10 +15,11 @@ function App() {
     <Provider store={store}>
       <Globalstyle></Globalstyle>
       <IconFont></IconFont>
-      <Header></Header>
+
       <BrowserRouter>
+        <Header></Header>
         <Route path="/" exact component={Home}></Route>
-        <Route path="/detall" exact render={() => <div>detall</div>}></Route>
+        <Route path="/detail" exact render={() => <div>detail</div>}></Route>
       </BrowserRouter>
     </Provider>
   );

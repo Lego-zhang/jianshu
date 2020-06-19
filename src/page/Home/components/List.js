@@ -13,8 +13,8 @@ class List extends PureComponent {
       <div>
         {newList.map((item, index) => {
           return (
-            <Link key={index} to="/detail">
-              <ListItem >
+            <Link key={index} to={"/detail?id=" + item.id}>
+              <ListItem>
                 <img className="pic" src={item.imgUrl} alt=""></img>
                 <ListInfo>
                   <h3 className="titel">{item.title}</h3>

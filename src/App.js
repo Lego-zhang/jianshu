@@ -9,8 +9,9 @@ import { IconFont } from "./statics/iconfont/iconfont";
 // 页面组件
 import Header from "./common/header/index";
 import Home from "./page/Home";
-import Detial from "./page/Detail";
+import Detial from "./page/Detail/loadable";
 import Login from './page/Login'
+import Write from './page/Write'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" exact component={Home}></Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/detail" exact component={Detial}></Route>
+        <Route path="/write" exact component={Write}></Route>
       </BrowserRouter>
     </Provider>
   );
